@@ -1,6 +1,7 @@
 const logger = require('../config/logger');
 const { ServerError } = require('../errors');
 
+
 function handleExpressProxyError (err, res, next) {            
     logger.error(`PROXY ERROR (express-http-proxy):`, {
         code: err.code,

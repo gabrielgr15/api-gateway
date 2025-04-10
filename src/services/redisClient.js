@@ -8,7 +8,13 @@ const redisClient = redis.createClient({
 
 (async () => {
     try{
-        redisClient.on('error', error => {logger.error('Redis client error: ', error)})
+        redisClient.on('error', (err) => {            
+            if (err.code === 'ECONNREFUSED' || err.message.includes('Connection lost')) {                 
+                 logger.warn('Redis client connection error (likely reconnect attempt):', err.message);
+            } else {                 
+                 logger.error('Unexpected Redis client error: ', err);
+            }
+        })
         await redisClient.connect()
         logger.info('Connected to Redis succesfully')
     }catch(error){

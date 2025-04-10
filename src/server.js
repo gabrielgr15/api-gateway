@@ -59,6 +59,7 @@ process.on('uncaughtException', (error) => {
 	process.exit(1) 
 })
 
+
 app.use(errorHandler)
 
 app.listen(PORT, () => {
